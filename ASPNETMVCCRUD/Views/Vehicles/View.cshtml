@@ -1,0 +1,39 @@
+﻿@model ASPNETMVCCRUD.Models.UpdateVehicleViewModel
+
+@{
+}
+
+<h1>Edit Vehicle</h1>
+<form method="post" action="View" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+        <input type="text" class="form-control" asp-for="Id" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Email Address</label>
+        <input type="email" class="form-control" asp-for="Email">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Cost</label>
+        <input type="number" class="form-control" asp-for="Cost">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Year</label>
+        <input type="date" class="form-control" asp-for="Year">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Carshop</label>
+        <input type="text" class="form-control" asp-for="CarShop">
+    </div>
+
+    <button type="submit" class="btn btn-primary" asp-action="">Submit</button>
+
+    <button type="submit" class="btn btn-danger"
+            asp-action="Delete"
+            asp-controller="VehicleMake">Delete</button>
+
+</form>
