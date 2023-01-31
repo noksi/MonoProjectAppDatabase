@@ -8,7 +8,7 @@ namespace ASPNETMVCCRUD.Controllers
 {
 	public class VehiclesController : Controller
 	{
-        private readonly MVCDemoDbContext mvcDemoDbContext;
+        public readonly MVCDemoDbContext mvcDemoDbContext;
 
         public VehiclesController(MVCDemoDbContext mvcDemoDbContext)
 		{
@@ -19,7 +19,7 @@ namespace ASPNETMVCCRUD.Controllers
 		public async Task<IActionResult> Index()
 		{
 		var vehicles =	await mvcDemoDbContext.VehicleMake.ToListAsync();
-		return View(vehicles);
+            return View(vehicles);
 
         }
 
@@ -29,7 +29,7 @@ namespace ASPNETMVCCRUD.Controllers
 		{
 			return View();
 		}
-		//create a functionality to add a new Vehicle 
+		//create a functionality to add a new VehicleModel 
 		[HttpPost]
 		public async Task<IActionResult> Add(AddVehicleViewModel addVehicleRequest)
 		{
@@ -37,15 +37,16 @@ namespace ASPNETMVCCRUD.Controllers
 			{
 				Id = Guid.NewGuid(),
 				Name = addVehicleRequest.Name,
-				Email = addVehicleRequest.Email,
+				VehicleModel = addVehicleRequest.VehicleModel,
 				Cost = addVehicleRequest.Cost,
 				CarShop = addVehicleRequest.CarShop,
 				Year = addVehicleRequest.Year,
-			};
+                Email = addVehicleRequest.Email,
+            };
 
             await mvcDemoDbContext.VehicleMake.AddAsync(vehicle);
             await mvcDemoDbContext.SaveChangesAsync();
-			return RedirectToAction("Index");
+			return RedirectToAction("Index");  //return to Index page
         }
 
 		[HttpGet]
@@ -53,40 +54,42 @@ namespace ASPNETMVCCRUD.Controllers
 		{
             var vehicle = await mvcDemoDbContext.VehicleMake.FirstOrDefaultAsync(x => x.Id == id);
 
-			if(vehicle == null)
+			if (vehicle != null)
 			{
-				var viewModel = new UpdateVehicleViewModel()
+                var viewModel = new UpdateVehicleViewModel()
 				{
 					Id = vehicle.Id,
 					Name = vehicle.Name,
-					Email = vehicle.Email,
+					VehicleModel = vehicle.VehicleModel,
 					Cost = vehicle.Cost,
 					CarShop = vehicle.CarShop,
 					Year = vehicle.Year,
-				};
+                    Email = vehicle.Email,
+                };
 
-				return await Task.Run(() => View("View", viewModel));
+                return await Task.Run(() => View("View", viewModel)); //run this View as a task
 
             }
             return RedirectToAction("Index");
 		}
 
-		[HttpPost]
+		[HttpPost] //post method for View action
 		public async Task<IActionResult> View(UpdateVehicleViewModel model)
 		{
 			var vehicle = await mvcDemoDbContext.VehicleMake.FindAsync(model.Id);
 
 			if (vehicle != null)
 			{
-				vehicle.Name = model.Name;
-                vehicle.Email = model.Email;
-                vehicle.Cost = model.Cost;
+				vehicle.Name = model.Name; //not update the original Id property but rest of the value of our vehicle
+				vehicle.VehicleModel = model.VehicleModel;
+				vehicle.Cost = model.Cost;
                 vehicle.Year = model.Year;
                 vehicle.CarShop = model.CarShop;
+                vehicle.Email = model.Email;
 
-				await mvcDemoDbContext.SaveChangesAsync();
+                await mvcDemoDbContext.SaveChangesAsync();
 
-				return RedirectToAction("Index");
+				return RedirectToAction("Index"); //when changes are saved return to Index page
             }
 
             return RedirectToAction("Index");

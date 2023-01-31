@@ -10,26 +10,27 @@ namespace ASPNETMVCCRUD.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "VehicleMake",
+                name: "Vehicle",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VehicleModel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cost = table.Column<long>(type: "bigint", nullable: false),
                     Year = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CarShop = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CarShop = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleMake", x => x.Id);
+                    table.PrimaryKey("PK_Vehicle", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VehicleMake");
+                name: "Vehicle");
         }
     }
 }

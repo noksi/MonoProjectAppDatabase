@@ -43,12 +43,16 @@ namespace ASPNETMVCCRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("VehicleModel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Year")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleMake");
+                    b.ToTable("Vehicle");
                 });
 #pragma warning restore 612, 618
         }

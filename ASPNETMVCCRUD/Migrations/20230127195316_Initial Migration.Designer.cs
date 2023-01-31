@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNETMVCCRUD.Migrations
 {
     [DbContext(typeof(MVCDemoDbContext))]
-    [Migration("20230117165335_Initial Migration")]
+    [Migration("20230127195316_Initial Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,12 +45,16 @@ namespace ASPNETMVCCRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("VehicleModel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Year")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleMake");
+                    b.ToTable("Vehicle");
                 });
 #pragma warning restore 612, 618
         }
